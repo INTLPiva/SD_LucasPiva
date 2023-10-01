@@ -22,6 +22,15 @@ public class Produto {
 	private List<Fornecedor> listaFornecedor;
 	
 
+	public Produto() {
+	}
+	
+	public Produto(String descricao) {
+		super();
+		this.descricao = descricao;
+	}
+	
+
 	public Long getId() {
 		return id;
 	}

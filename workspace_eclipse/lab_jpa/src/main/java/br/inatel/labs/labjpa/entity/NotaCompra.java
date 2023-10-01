@@ -27,6 +27,16 @@ public class NotaCompra {
 	private List<NotaCompraItem> listaNotaCompraItem;
 	
 	
+	public NotaCompra() {
+	}
+	
+	public NotaCompra(LocalDate dataEmissao, Fornecedor fornecedor) {
+		super();
+		this.dataEmissao = dataEmissao;
+		this.fornecedor = fornecedor;
+	}
+
+
 	public BigDecimal getCalculoTotalNota() {
 		BigDecimal totalNota = this.listaNotaCompraItem.stream()
 			.map( i -> i.getCalculoTotalItem() )
