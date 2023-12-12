@@ -1,4 +1,4 @@
-package br.inatel.labs.labrest.server.controller;
+package br.inatel.labs.lab.rest.server.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,22 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.inatel.labs.labrest.server.model.Produto;
-import br.inatel.labs.labrest.server.service.ProdutoService;
+import br.inatel.labs.lab.rest.server.model.Produto;
+import br.inatel.labs.lab.rest.server.service.ProdutoService;
 
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
-	
+
 	@Autowired
 	private ProdutoService service;
 	
-	@GetMapping 
+	@GetMapping
 	public List<Produto> getProdutos() {
 		return service.findAll();
 	}
@@ -36,37 +35,33 @@ public class ProdutoController {
 	public Produto getProdutoById(@PathVariable("id") Long produtoId) {
 		Optional<Produto> opProduto = service.findById(produtoId);
 		
-		if (opProduto.isPresent()) {
-			return opProduto.get();
+		if (opProduto.isEmpty()) {
+			String msg = String.format("Nenhum produto encontrado com id [%s]", produtoId);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
 		}
 		
-		String msg = String.format("Nnenhum produto encontrado com if [%s]", produtoId);
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
+		return opProduto.get();
 	}
 	
+
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus (code = HttpStatus.CREATED)
 	public Produto postProduto(@RequestBody Produto p) {
 		Produto produtoCriado = service.create(p);
 		return produtoCriado;
-		
 	}
 	
 	@PutMapping
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@ResponseStatus (code = HttpStatus.NO_CONTENT)
 	public void putProduto(@RequestBody Produto p) {
 		service.update(p);
 	}
 	
 	@DeleteMapping("/{id}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@ResponseStatus (code = HttpStatus.NO_CONTENT)
 	public void deleteProduto(@PathVariable("id") Long produtoId) {
-		Produto produtoEncontrado = getProdutoById(produtoId);
+		Produto produtoEncontrado = this.getProdutoById(produtoId);
 		service.remove(produtoEncontrado);
 	}
 	
-	@GetMapping("/pesquisa")
-	public List<Produto> getByFragDescricao(@RequestParam("descricao") String fragDescricao) {
-		return service.findByFragDescricao(fragDescricao);
-	}
 }

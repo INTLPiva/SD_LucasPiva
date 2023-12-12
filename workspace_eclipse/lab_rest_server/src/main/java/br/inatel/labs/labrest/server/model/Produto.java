@@ -1,16 +1,16 @@
-package br.inatel.labs.labrest.server.model;
+package br.inatel.labs.lab.rest.server.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Produto {
+
 	private Long id;
 	
 	private String descricao;
 	
 	private BigDecimal preco;
 
-	//Constructor gerado com ctrl+3 > gcuf (Generate constructor using fields)
 	public Produto(Long id, String descricao, BigDecimal preco) {
 		super();
 		this.id = id;
@@ -18,11 +18,12 @@ public class Produto {
 		this.preco = preco;
 	}
 	
-	//Constructor padrao
 	public Produto() {
 		
 	}
 
+	
+	//acessores
 	public Long getId() {
 		return id;
 	}

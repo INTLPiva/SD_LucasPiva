@@ -1,25 +1,19 @@
-package br.inatel.labs.labrest.server.service;
+package br.inatel.labs.lab.rest.server.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
-import br.inatel.labs.labrest.server.model.Produto;
+import br.inatel.labs.lab.rest.server.model.Produto;
 import jakarta.annotation.PostConstruct;
 
 @Service
 public class ProdutoService {
-	
 	private List<Produto> produtos = new ArrayList<>();
-	
-	public List<Produto> findAll() {
-		return this.produtos;
-	}
 	
 	@PostConstruct
 	private void setup() {
@@ -31,6 +25,10 @@ public class ProdutoService {
 		produtos.add(p3);
 	}
 	
+	public List<Produto> findAll(){
+		return this.produtos;
+	}
+	
 	public Optional<Produto> findById(Long id) {
 		return produtos.stream()
 				.filter(p -> p.getId() == id)
@@ -38,8 +36,8 @@ public class ProdutoService {
 	}
 	
 	public Produto create(Produto p) {
-		Long idRandom = new Random().nextLong();
-		p.setId( idRandom );
+		long id = new Random().nextLong();
+		p.setId(id);
 		produtos.add(p);
 		return p;
 	}
@@ -49,16 +47,7 @@ public class ProdutoService {
 		produtos.add(p);
 	}
 	
-	public void remove(Produto p) {
+	public void remove (Produto p) {
 		produtos.remove(p);
-	}
-	
-	public List<Produto> findByFragDescricao(String fragDescricao) {
-		if (Objects.isNull(fragDescricao)|| fragDescricao.isBlank()) {
-			return List.of(); //Lista vazia
-		}
-		return this.produtos.stream()
-				.filter(p -> p.getDescricao().trim().toLowerCase().contains(fragDescricao.trim().toLowerCase()))
-				.toList();
 	}
 }

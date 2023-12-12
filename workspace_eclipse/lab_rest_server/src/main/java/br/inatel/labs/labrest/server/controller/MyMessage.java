@@ -1,4 +1,4 @@
-package br.inatel.labs.labrest.server.controller;
+package br.inatel.labs.lab.rest.server.controller;
 
 public class MyMessage {
 
@@ -11,4 +11,6 @@ public class MyMessage {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	
+	
 }

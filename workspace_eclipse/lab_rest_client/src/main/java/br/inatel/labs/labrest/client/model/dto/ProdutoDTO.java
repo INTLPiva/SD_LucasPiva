@@ -42,10 +42,7 @@ public class ProdutoDTO {
 	}
 	@Override
 	public String toString() {
-		return "ProdutoDTO [descricao=" + descricao + ", preco=" + preco + "]";
+		return "ProdutoDTO [id=" + id + ", descricao=" + descricao + ", preco=" + preco + "]";
 	}
-	
-	
-	
 	
 }
